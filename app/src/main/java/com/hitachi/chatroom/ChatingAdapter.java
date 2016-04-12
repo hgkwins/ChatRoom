@@ -9,6 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hitachi.chatroom.util.XmppTool;
+
+import org.jivesoftware.smack.packet.Message;
+
 import java.util.List;
 
 /**
@@ -16,10 +20,10 @@ import java.util.List;
  */
 public class ChatingAdapter extends BaseAdapter {
 
-    private List<ChatMessage> datas;
+    private List<Message> datas;
     private Context mContext;
 
-    public ChatingAdapter(Context context , List<ChatMessage> datas) {
+    public ChatingAdapter(Context context , List<Message> datas) {
         this.datas = datas;
         mContext = context;
     }
@@ -56,10 +60,11 @@ public class ChatingAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
 
-        ChatMessage chatMessage = datas.get(position);
+        Message chatMessage = datas.get(position);
+        String username = chatMessage.getFrom();
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        if (chatMessage.userId == 1) {
+        if (username != null && username.equals(XmppTool.getConnection().getUser())) {
             layoutParams.gravity = Gravity.RIGHT;
             holder.layout_message.setBackgroundColor(Color.GRAY);
         } else  {
@@ -67,8 +72,9 @@ public class ChatingAdapter extends BaseAdapter {
             holder.layout_message.setBackgroundColor(Color.parseColor("#ff4081"));
         }
         holder.layout_message.setLayoutParams(layoutParams);
-        holder.text_user.setText(chatMessage.userName);
-        holder.text_message.setText(chatMessage.message);
+        String[] str = username.split("@");
+        holder.text_user.setText(str[0] + ":");
+        holder.text_message.setText(chatMessage.getBody());
 
 
         return convertView;

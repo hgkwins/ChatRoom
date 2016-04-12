@@ -13,14 +13,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CDC Android Group"
-            android:textSize="22sp"
+            android:textSize="32sp"
             android:textStyle="bold"
             />
     </LinearLayout>
     <ListView
         android:id="@+id/list_chating"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1.0"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFEEEEEE" >
+
+        <EditText
+            android:id="@+id/edit_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:textSize="22sp"
+            android:hint="Please input content"
+            android:inputType="textWebEditText"
+            android:text="" />
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:text="Send" />
+
+    </LinearLayout>
 
 </LinearLayout>

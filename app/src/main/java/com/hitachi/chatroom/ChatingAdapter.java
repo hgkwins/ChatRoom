@@ -9,9 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hitachi.chatroom.util.TimeRender;
 import com.hitachi.chatroom.util.XmppTool;
 
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import java.util.List;
 
@@ -20,12 +22,14 @@ import java.util.List;
  */
 public class ChatingAdapter extends BaseAdapter {
 
-    private List<Message> datas;
+    private List<ChatMessage> datas;
     private Context mContext;
+    private MultiUserChat multiUserChat;
 
-    public ChatingAdapter(Context context , List<Message> datas) {
-        this.datas = datas;
+    public ChatingAdapter(Context context , List<ChatMessage> datas, MultiUserChat multiUserChat) {
         mContext = context;
+        this.datas = datas;
+        this.multiUserChat = multiUserChat;
     }
 
     @Override
@@ -52,37 +56,45 @@ public class ChatingAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new Holder();
             convertView = View.inflate(mContext , R.layout.list_item_chating , null);
-            holder.layout_message = (LinearLayout) convertView.findViewById(R.id.layout_message);
+            holder.layout_top = (LinearLayout) convertView.findViewById(R.id.layout_top);
+            holder.layout_bottom = (LinearLayout) convertView.findViewById(R.id.layout_bottom);
             holder.text_user = (TextView) convertView.findViewById(R.id.text_user);
+            holder.text_date = (TextView) convertView.findViewById(R.id.text_date);
             holder.text_message = (TextView) convertView.findViewById(R.id.text_message);
             convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();
         }
 
-        Message chatMessage = datas.get(position);
-        String username = chatMessage.getFrom();
+        ChatMessage chatMessage = datas.get(position);
+        Message message = chatMessage.message;
+        String roomName = multiUserChat.getRoom();
+        String username = message.getFrom().replace(roomName + "/", "");
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         if (username != null && username.equals(XmppTool.getConnection().getUser())) {
             layoutParams.gravity = Gravity.RIGHT;
-            holder.layout_message.setBackgroundColor(Color.GRAY);
+            holder.layout_bottom.setBackgroundResource(R.drawable.outgoing);
         } else  {
             layoutParams.gravity = Gravity.LEFT;
-            holder.layout_message.setBackgroundColor(Color.parseColor("#ff4081"));
+            holder.layout_bottom.setBackgroundResource(R.drawable.incoming);
         }
-        holder.layout_message.setLayoutParams(layoutParams);
+        holder.layout_top.setLayoutParams(layoutParams);
+        holder.layout_bottom.setLayoutParams(layoutParams);
         String[] str = username.split("@");
         holder.text_user.setText(str[0] + ":");
-        holder.text_message.setText(chatMessage.getBody());
+        holder.text_message.setText(message.getBody());
+        holder.text_date.setText(TimeRender.getDate());
 
 
         return convertView;
     }
 
     class Holder {
-        LinearLayout layout_message;
+        LinearLayout layout_top;
+        LinearLayout layout_bottom;
         TextView text_user;
+        TextView text_date;
         TextView text_message;
     }
 }

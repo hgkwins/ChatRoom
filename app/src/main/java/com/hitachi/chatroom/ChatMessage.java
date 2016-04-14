@@ -1,18 +1,18 @@
 package com.hitachi.chatroom;
 
+import org.jivesoftware.smack.packet.Message;
+
 /**
  * Created by ghe on 2016/3/31.
  */
 public class ChatMessage {
 
-    int userId;
-    String userName;
-    String message;
+    Message message;
+    String date;
 
-    public ChatMessage(int userId, String userName, String message) {
-        this.userId = userId;
-        this.userName = userName;
+    public ChatMessage(Message message, String date) {
         this.message = message;
+        this.date = date;
     }
 
     public ChatMessage() {

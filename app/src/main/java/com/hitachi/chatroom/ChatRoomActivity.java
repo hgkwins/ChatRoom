@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.hitachi.chatroom.util.TimeRender;
 import com.hitachi.chatroom.util.XmppTool;
 
 import org.jivesoftware.smack.PacketListener;
@@ -26,6 +27,7 @@ import org.jivesoftware.smackx.muc.DiscussionHistory;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -35,7 +37,7 @@ import java.util.List;
 public class ChatRoomActivity extends Activity implements AdapterView.OnItemClickListener, View.OnClickListener , PacketListener {
 
     private ListView list_chating;
-    private List<Message> datas;
+    private List<ChatMessage> datas;
     private ChatingAdapter chatingAdapter;
     private Button btn_send;
     private EditText edit_message;
@@ -68,8 +70,8 @@ public class ChatRoomActivity extends Activity implements AdapterView.OnItemClic
         btn_send = (Button) findViewById(R.id.btn_send);
         btn_send.setOnClickListener(this);
         edit_message = (EditText) this.findViewById(R.id.edit_message);
-        datas = new ArrayList<Message>();
-        chatingAdapter = new ChatingAdapter(this, datas);
+        datas = new ArrayList<ChatMessage>();
+        chatingAdapter = new ChatingAdapter(this, datas, multiUserChat);
         list_chating.setAdapter(chatingAdapter);
         Roster roster = XmppTool.getConnection().getRoster();
         List<RosterGroup> tempDatas = XmppTool.getGroups(roster);
@@ -77,20 +79,6 @@ public class ChatRoomActivity extends Activity implements AdapterView.OnItemClic
         boolean addFlag = XmppTool.addUser(roster, XmppTool.getConnection().getUser(),"kk");
         Log.i("tempDatas", "tempDatas = " + tempDatas + ", addFlag = " + addFlag);
 
-
-//        initChatMessageData();
-    }
-
-
-    private void initChatMessageData() {
-        for (int i = 0;i < 29; i++) {
-            ChatMessage message = new ChatMessage(i,"User" + i + ":", "Message" + i);
-            if (i == 1) {
-                message.userName = "Me:";
-            }
-//            datas.add(message);
-        }
-        chatingAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -105,11 +93,14 @@ public class ChatRoomActivity extends Activity implements AdapterView.OnItemClic
                 String msg = edit_message.getText().toString();
                 if (multiUserChat != null) {
                     try {
-                        multiUserChat.sendMessage(msg);
+                        if (msg != null && !msg.trim().equals("")) {
+                            multiUserChat.sendMessage(msg);
+                        }
                     } catch (XMPPException e) {
                         e.printStackTrace();
                     }
                 }
+                edit_message.setText("");
 //                if(msg.length() > 0){
 //                    listMsg.add(new Msg(pUSERID, msg, TimeRender.getDate(), "OUT"));
 //                    adapter.notifyDataSetChanged();
@@ -119,7 +110,6 @@ public class ChatRoomActivity extends Activity implements AdapterView.OnItemClic
 //                        e.printStackTrace();
 //                    }
 //                }
-//                edit_message.setText("");
                 break;
         }
     }
@@ -128,9 +118,8 @@ public class ChatRoomActivity extends Activity implements AdapterView.OnItemClic
     public void processPacket(Packet packet) {
         Message message = (Message) packet;
         String body = message.getBody();
-        datas.add(message);
+        datas.add(new ChatMessage(message, TimeRender.getDate()));
         Log.i("hitachi", "messagee body = " + body);
-//        chatingAdapter.notifyDataSetChanged();
         mHandler.sendEmptyMessage(0);
     }
 }

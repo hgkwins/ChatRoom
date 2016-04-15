@@ -121,5 +121,6 @@ public class ChatRoomActivity extends Activity implements AdapterView.OnItemClic
         datas.add(new ChatMessage(message, TimeRender.getDate()));
         Log.i("hitachi", "messagee body = " + body);
         mHandler.sendEmptyMessage(0);
+//        list_chating.smoothScrollToPosition(list_chating.getCount() - 1);
     }
 }

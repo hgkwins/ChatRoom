@@ -1,7 +1,6 @@
-package com.hitachi.chatroom;
+package com.hitachi.chatroom.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hitachi.chatroom.R;
+import com.hitachi.chatroom.model.ChatMessage;
 import com.hitachi.chatroom.util.TimeRender;
 import com.hitachi.chatroom.util.XmppTool;
 

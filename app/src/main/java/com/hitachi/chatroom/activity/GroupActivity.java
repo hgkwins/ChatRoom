@@ -1,14 +1,14 @@
-package com.hitachi.chatroom;
+package com.hitachi.chatroom.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.hitachi.chatroom.R;
 import com.hitachi.chatroom.util.XmppTool;
 
 import org.jivesoftware.smackx.muc.MultiUserChat;

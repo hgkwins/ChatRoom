@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="frameLibrary">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/src/libs/frameLibrary.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

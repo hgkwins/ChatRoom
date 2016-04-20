@@ -36,7 +36,7 @@ public class XmppTool {
 	 */
 	private static void openConnection() {
 		try {
-			ConnectionConfiguration connConfig = new ConnectionConfiguration("10.67.15.49", 5222);
+			ConnectionConfiguration connConfig = new ConnectionConfiguration("192.168.1.103", 5222);
 			con = new XMPPConnection(connConfig);
 			con.connect();
 		} catch (XMPPException xe) {

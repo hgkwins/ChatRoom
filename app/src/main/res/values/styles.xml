@@ -17,4 +17,33 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!-- 顶部布局 背景 -->
+    <style name="top_bar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--<item name="android:background">@drawable/top_bar_bg</item>-->
+    </style>
+    <!-- 顶部布局  居左按钮 -->
+    <style name="top_bt_left">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_gravity">center_vertical|left</item>
+    </style>
+    <!-- 顶部布局  居右按钮 -->
+    <style name="top_bt_right">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_gravity">center_vertical|right</item>
+    </style>
+
+
+    <!-- 列表布局 -->
+    <style name="listview_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">#FFFFFFFF</item>
+    </style>
+
 </resources>

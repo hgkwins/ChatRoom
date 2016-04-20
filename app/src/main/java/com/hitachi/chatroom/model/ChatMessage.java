@@ -1,4 +1,4 @@
-package com.hitachi.chatroom;
+package com.hitachi.chatroom.model;
 
 import org.jivesoftware.smack.packet.Message;
 
@@ -7,8 +7,8 @@ import org.jivesoftware.smack.packet.Message;
  */
 public class ChatMessage {
 
-    Message message;
-    String date;
+    public Message message;
+    public String date;
 
     public ChatMessage(Message message, String date) {
         this.message = message;

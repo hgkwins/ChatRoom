@@ -1,4 +1,4 @@
-package com.hitachi.chatroom;
+package com.hitachi.chatroom.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,24 +11,21 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.hitachi.chatroom.R;
+import com.hitachi.chatroom.adapter.ChatingAdapter;
+import com.hitachi.chatroom.model.ChatMessage;
 import com.hitachi.chatroom.util.TimeRender;
 import com.hitachi.chatroom.util.XmppTool;
 
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterGroup;
-import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
-import org.jivesoftware.smackx.Form;
-import org.jivesoftware.smackx.FormField;
-import org.jivesoftware.smackx.muc.DiscussionHistory;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 /**

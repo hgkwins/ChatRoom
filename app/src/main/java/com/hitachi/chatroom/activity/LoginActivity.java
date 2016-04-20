@@ -1,4 +1,4 @@
-package com.hitachi.chatroom;
+package com.hitachi.chatroom.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,12 +11,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.hitachi.chatroom.R;
 import com.hitachi.chatroom.util.XmppTool;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Presence;
 
-public class MainActivity extends Activity implements View.OnClickListener{
+public class LoginActivity extends Activity implements View.OnClickListener{
 
     private Button btn_login, btn_register;
     private LinearLayout layout_login, layout_progress;
@@ -35,7 +36,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 case MSG_LOGIN_ERROR:
                     layout_progress.setVisibility(View.GONE);
                     layout_login.setVisibility(View.VISIBLE);
-                    Toast.makeText(MainActivity.this, "login failure", 0).show();
+                    Toast.makeText(LoginActivity.this, "login failure", Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     break;
@@ -77,7 +78,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                             // status
                             Presence presence = new Presence(Presence.Type.available);
                             XmppTool.getConnection().sendPacket(presence);
-                            Intent intent = new Intent(MainActivity.this, GroupActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, MainFrameActivity.class);
                             intent.putExtra("USERID", USERID);
                             startActivity(intent);
                             finish();

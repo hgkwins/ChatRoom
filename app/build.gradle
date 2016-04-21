@@ -20,6 +20,12 @@ android {
     }
 }
 
+repositories{
+    flatDir{
+        dirs'src/libs'
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
@@ -27,4 +33,5 @@ dependencies {
     compile 'com.android.support:design:23.0.1'
     compile files('src/libs/asmack.jar')
     compile files('src/libs/frameLibrary.jar')
+    compile (name:'frameLibrary', ext:'aar')
 }

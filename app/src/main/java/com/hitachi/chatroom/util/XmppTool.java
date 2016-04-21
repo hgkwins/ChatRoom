@@ -28,6 +28,7 @@ import java.util.List;
 public class XmppTool {
 
 	private static XMPPConnection con = null;
+	private static final String IP_ADDRESS = "10.67.15.49";
 
 	/**
 	 * 连接服务器
@@ -36,7 +37,7 @@ public class XmppTool {
 	 */
 	private static void openConnection() {
 		try {
-			ConnectionConfiguration connConfig = new ConnectionConfiguration("192.168.1.103", 5222);
+			ConnectionConfiguration connConfig = new ConnectionConfiguration(IP_ADDRESS, 5222);
 			con = new XMPPConnection(connConfig);
 			con.connect();
 		} catch (XMPPException xe) {
